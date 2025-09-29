@@ -24,10 +24,12 @@ jobs:
           host: ${{ env.REMOTE_HOST }}
           username: ${{ env.REMOTE_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
-          source: "./*"
+          source: "./"
           target: ${{ env.REMOTE_PATH }}
+          rm: false
+          overwrite: true
 
-      - name: Restart Nginx
+      - name: Reload Nginx
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ env.REMOTE_HOST }}
