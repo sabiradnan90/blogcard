@@ -1,4 +1,4 @@
-                                                                    ***GitHub Hosted Runner***
+                                            ***GitHub Hosted Runner***
 
 A GitHub hosted runner is a virtual machine (VM) provided and maintained by GitHub to run your workflows in GitHub Actions. You don’t have to set up or manage the machine yourself—GitHub automatically provisions and tears it down for each workflow run.
 When a workflow is triggered by an event such as a push, pull request, or schedule, GitHub automatically assigns an available hosted runner to execute the job. The runner, which comes pre-installed with commonly used tools like Node.js, Python, and Docker, checks out the repository, runs the CI/CD pipeline steps defined in. github/workflows/, and upon completion, provides logs and artifacts before being released
