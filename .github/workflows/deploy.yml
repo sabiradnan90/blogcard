@@ -26,8 +26,26 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           source: "./"
           target: ${{ env.REMOTE_PATH }}
-          rm: false
+          rm: true
           overwrite: true
+
+          strip_components: 1
+          exclude: |
+            .git
+            .github
+            node_modules
+
+      - name: Move files to Nginx web root
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ env.REMOTE_HOST }}
+          username: ${{ env.REMOTE_USER }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            sudo mkdir -p ${{ env.REMOTE_PATH }}
+            sudo rsync -avz /home/${{ env.REMOTE_USER }}/blogcard/ ${{ env.REMOTE_PATH }}/
+            sudo chown -R www-data:www-data ${{ env.REMOTE_PATH }}
+            rm -rf /home/${{ env.REMOTE_USER }}/blogcard
 
       - name: Reload Nginx
         uses: appleboy/ssh-action@v1.0.0
@@ -37,3 +55,4 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             sudo systemctl reload nginx
+
